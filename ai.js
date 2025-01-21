@@ -11,7 +11,7 @@ The recipe can include additional ingredients they didn't
  Format your response in markdown to make it easier to render to a web page
 `;
 
-const hf = new HfInference(process.env.REACT_APP_API_KEY);
+const hf = new HfInference(import.meta.env.REACT_APP_API_KEY);
 
 export async function getRecipeFromMistral(ingredientsArr) {
   const ingredientsString = ingredientsArr.join(", ");

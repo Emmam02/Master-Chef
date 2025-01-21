@@ -1,13 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import IngridientsList from "./IngridientsList";
 import ClaudeRecipe from "./ClaudeRecipe";
 import { getRecipeFromMistral } from "../ai";
 
 export default function Main() {
   const [ingredients, setIngredients] = useState(["Chicken"]);
-
   const [recipeShown, setRecipeShown] = useState(false);
   const [recipe, setRecipe] = useState("");
+
+  const recipeSection = useRef(null);
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (recipe !== "" && recipeSection !== null) {
+      recipeSection.current.scrollIntoView();
+    }
+  }, [recipe]);
 
   async function toggleRecipeShown() {
     if (!recipeShown) {
@@ -22,9 +30,20 @@ export default function Main() {
     setRecipeShown((prevShown) => !prevShown);
   }
 
-  function addIngredient(formData) {
+  function addIngredient(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
     const newIngredient = formData.get("ingredient");
-    setIngredients((prevIngredients) => [...prevIngredients, newIngredient]);
+    const input = document.querySelector("input[type='text']");
+
+    if (newIngredient && !ingredients.includes(newIngredient)) {
+      setIngredients((prevIngredients) => [...prevIngredients, newIngredient]);
+    } else if (newIngredient) {
+      alert(`${newIngredient} is already in the list!`);
+    }
+    if (inputRef.current) {
+      inputRef.current.value = "";
+    }
   }
 
   function removeIngredient(ingredient) {
@@ -35,8 +54,9 @@ export default function Main() {
 
   return (
     <main>
-      <form action={addIngredient} className="add-ingredient-form">
+      <form onSubmit={addIngredient} className="add-ingredient-form">
         <input
+          ref={inputRef}
           type="text"
           placeholder="e.g. oregano"
           aria-label="Add ingredient"
@@ -50,6 +70,7 @@ export default function Main() {
           toggleRecipeShown={toggleRecipeShown}
           ingredients={ingredients}
           removeIngredient={removeIngredient}
+          recipeSection={recipeSection}
         />
       )}
 

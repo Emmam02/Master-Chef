@@ -1,6 +1,7 @@
 {
   "name": "Scrim-s06is72",
   "description": "https://scrimba.com/the-frontend-developer-career-path-c0j/~0x7h/s0kib0tem5/head",
+  "type": "module",
   "scripts": {
     "start": "vite",
     "dev": "vite",
@@ -9,11 +10,11 @@
   },
   "dependencies": {
     "@huggingface/inference": "^2.8.1",
-    "react": "19.0.0-rc-8b08e99e-20240713",
-    "react-dom": "19.0.0-rc-8b08e99e-20240713",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-markdown": "^9.0.3",
     "remark-gfm": "^4.0.0",
-    "vite": "latest"
+    "vite": "^6.0.11"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "*"

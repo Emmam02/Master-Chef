@@ -1,7 +1,8 @@
 import React from "react";
 
 const IngridientsList = (props) => {
-  const { ingredients, removeIngredient, toggleRecipeShown } = props;
+  const { ingredients, removeIngredient, toggleRecipeShown, recipeSection } =
+    props;
 
   return (
     <section>
@@ -25,7 +26,7 @@ const IngridientsList = (props) => {
       </ul>
       {ingredients.length > 3 && (
         <div className="get-recipe-container">
-          <div>
+          <div ref={recipeSection}>
             <h3>Ready for a recipe?</h3>
             <p>Generate a recipe from your list of ingredients.</p>
           </div>
